@@ -1,0 +1,17 @@
+---
+- name: Get server information
+  community.mysql.mysql_info:
+    login_unix_socket: '{{ mysql_import_socket }}'
+    login_user: '{{ mysql_import_user }}'
+    login_password: '{{ mysql_import_password }}'
+  register: mysql_import_info
+
+- name: Include database tasks
+  ansible.builtin.include_tasks: database.yml
+  when: db.name not in mysql_import_info.databases
+  loop: '{{ mysql_import_databases |
+    ansible.builtin.dict2items(key_name="name", value_name="dump") }}'
+  loop_control:
+    loop_var: db
+    label: '{{ db.name }}'
+...

@@ -1,0 +1,6 @@
+---
+mysql_server_id: 2
+mysql_replicate_ignore_tables:
+  - bet.events_on_demand
+  - bet.v_same_event
+...

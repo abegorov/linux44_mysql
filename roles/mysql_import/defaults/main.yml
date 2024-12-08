@@ -1,0 +1,8 @@
+---
+mysql_import_socket: /var/lib/mysql/mysql.sock
+mysql_import_user: root
+mysql_import_password: '{{ lookup("ansible.builtin.password",
+  "passwords/mysql_root_password.txt", length=26) }}'
+
+mysql_import_databases: {}
+...

@@ -1,0 +1,7 @@
+---
+- name: Restart service mysqld
+  ansible.builtin.systemd_service:
+    name: mysqld.service
+    state: restarted
+  ignore_errors: '{{ ansible_check_mode }}'
+...

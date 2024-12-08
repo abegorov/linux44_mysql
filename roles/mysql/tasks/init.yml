@@ -1,0 +1,29 @@
+---
+- name: Create mysql database
+  ansible.builtin.shell:
+    cmd: |
+      set -o errexit
+      set -o pipefail
+      mysqld_pre_systemd
+      cat /var/log/mysqld.log | grep 'root@localhost:' | awk '{print $NF}'
+    creates: '{{ mysql_datadir }}/mysql.ibd'
+  register: mysql_temporary_password
+
+- name: Enable and start service mysqld
+  ansible.builtin.systemd_service:
+    name: mysqld.service
+    enabled: true
+    state: started
+  ignore_errors: '{{ ansible_check_mode }}'
+
+- name: Change root password
+  ansible.builtin.command: >-
+    /usr/bin/mysqladmin
+    --socket='{{ mysql_socket }}'
+    --user=root
+    --password='{{ mysql_temporary_password.stdout_lines[-1] }}'
+    password '{{ mysql_root_password }}'
+  no_log: true
+  changed_when: true
+  when: mysql_temporary_password.changed  # noqa: no-handler
+...

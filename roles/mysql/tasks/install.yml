@@ -1,0 +1,24 @@
+---
+- name: Install percona release tool
+  ansible.builtin.dnf:
+    name: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    disable_gpg_check: true
+    state: present
+
+- name: Enable percona ps-84-lts repository
+  ansible.builtin.command:
+    cmd: percona-release enable-only ps-84-lts release
+    creates: /etc/yum.repos.d/percona-ps-84-lts-release.repo
+
+- name: Enable percona tools repository
+  ansible.builtin.command:
+    cmd: percona-release enable tools release
+    creates: /etc/yum.repos.d/percona-tools-release.repo
+
+- name: Install percona server
+  ansible.builtin.dnf:
+    name:
+      - percona-server-server
+      - python3-PyMySQL
+    state: present
+...

@@ -1,0 +1,28 @@
+---
+- name: Import database
+  block:
+    - name: Copy database dump {{ db.name }}
+      ansible.builtin.copy:
+        src: '{{ db.dump }}'
+        dest: /tmp/ansible.mysqldump.{{ db.dump }}
+        owner: root
+        group: root
+        mode: '0600'
+      diff: false
+
+    - name: Import database dump {{ db.name }}
+      community.mysql.mysql_db:
+        login_unix_socket: '{{ mysql_import_socket }}'
+        login_user: '{{ mysql_import_user }}'
+        login_password: '{{ mysql_import_password }}'
+        name: '{{ db.name }}'
+        target: /tmp/ansible.mysqldump.{{ db.dump }}
+        pipefail: true
+        state: import
+
+  always:
+    - name: Remove database dump {{ db.name }}
+      ansible.builtin.file:
+        path: /tmp/ansible.mysqldump.{{ db.dump }}
+        state: absent
+...

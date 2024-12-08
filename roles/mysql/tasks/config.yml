@@ -1,0 +1,16 @@
+---
+- name: Update MySQL configuration
+  ansible.builtin.template:
+    src: '{{ item }}'
+    dest: /etc/my.cnf.d/{{ item }}
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - 01-base.cnf
+    - 02-max-connections.cnf
+    - 03-performance.cnf
+    - 04-slow-query.cnf
+    - 05-binlog.cnf
+  notify: Restart service mysqld
+...

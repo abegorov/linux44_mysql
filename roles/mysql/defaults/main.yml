@@ -1,0 +1,9 @@
+---
+mysql_datadir: /var/lib/mysql
+mysql_socket: /var/lib/mysql/mysql.sock
+mysql_root_password: '{{ lookup("ansible.builtin.password",
+  "passwords/mysql_root_password.txt", length=26) }}'
+
+mysql_server_id: 1
+mysql_replicate_ignore_tables: []
+...

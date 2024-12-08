@@ -1,0 +1,21 @@
+---
+- name: Common provision
+  hosts: all
+  become: true
+  gather_facts: false
+  roles:
+    - mysql
+
+- name: Master provision
+  hosts: master
+  become: true
+  gather_facts: false
+  roles:
+    - mysql_import
+
+- name: Slave provision
+  hosts: slave
+  become: true
+  gather_facts: false
+  roles:
+    - mysql_import

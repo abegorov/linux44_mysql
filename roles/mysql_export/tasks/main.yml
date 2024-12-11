@@ -1,0 +1,9 @@
+---
+- name: Include database tasks
+  ansible.builtin.include_tasks: database.yml
+  loop: '{{ mysql_export_databases |
+    ansible.builtin.dict2items(key_name="name", value_name="opts") }}'
+  loop_control:
+    loop_var: db
+    label: '{{ db.name }}'
+...

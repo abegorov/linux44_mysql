@@ -1,0 +1,27 @@
+---
+- name: Export database
+  block:
+    - name: Export database dump {{ db.name }}
+      community.mysql.mysql_db:
+        login_unix_socket: '{{ mysql_export_socket }}'
+        login_user: '{{ mysql_export_user }}'
+        login_password: '{{ mysql_export_password }}'
+        name: '{{ db.name }}'
+        target: /tmp/ansible.mysqldump.{{ db.opts.dump }}
+        ignore_tables: '{{ db.opts.ignore_tables | default([]) }}'
+        pipefail: true
+        state: dump
+
+    - name: Download database dump {{ db.name }}
+      ansible.builtin.fetch:
+        src: /tmp/ansible.mysqldump.{{ db.opts.dump }}
+        dest: '{{ db.opts.dir }}/{{ db.opts.dump }}'
+        flat: true
+      diff: false
+
+  always:
+    - name: Remove database dump {{ db.name }}
+      ansible.builtin.file:
+        path: /tmp/ansible.mysqldump.{{ db.opts.dump }}
+        state: absent
+...

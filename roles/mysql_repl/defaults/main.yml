@@ -1,0 +1,13 @@
+---
+mysql_repl_socket: /var/lib/mysql/mysql.sock
+mysql_repl_user: root
+mysql_repl_password: '{{ lookup("ansible.builtin.password",
+  "passwords/mysql_root_password.txt", length=26) }}'
+
+mysql_repl_primary_host: '{{ undef() }}'
+mysql_repl_primary_port: 3306
+mysql_repl_primary_user: '{{ omit }}'
+mysql_repl_primary_password: '{{ omit }}'
+mysql_repl_primary_auto_position: true
+mysql_repl_primary_ssl: true
+...

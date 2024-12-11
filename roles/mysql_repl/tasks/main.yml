@@ -1,0 +1,22 @@
+---
+- name: Change primary server
+  community.mysql.mysql_replication:
+    login_unix_socket: '{{ mysql_repl_socket }}'
+    login_user: '{{ mysql_repl_user }}'
+    login_password: '{{ mysql_repl_password }}'
+    mode: changeprimary
+    primary_host: '{{ mysql_repl_primary_host }}'
+    primary_port: '{{ mysql_repl_primary_port }}'
+    primary_user: '{{ mysql_repl_primary_user }}'
+    primary_password: '{{ mysql_repl_primary_password }}'
+    primary_auto_position: '{{ mysql_repl_primary_auto_position }}'
+    primary_ssl: '{{ mysql_repl_primary_ssl }}'
+
+- name: Run start replica and fail the task on errors
+  community.mysql.mysql_replication:
+    login_unix_socket: '{{ mysql_repl_socket }}'
+    login_user: '{{ mysql_repl_user }}'
+    login_password: '{{ mysql_repl_password }}'
+    mode: startreplica
+    fail_on_error: true
+...

@@ -12,6 +12,7 @@
   gather_facts: false
   roles:
     - mysql_import
+    - mysql_export
 
 - name: Slave provision
   hosts: slave
@@ -19,3 +20,4 @@
   gather_facts: false
   roles:
     - mysql_import
+    - mysql_repl

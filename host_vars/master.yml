@@ -2,6 +2,24 @@
 mysql_server_id: 1
 mysql_replicate_ignore_tables: []
 
+mysql_users:
+  - name: repl
+    host: '%'
+    password_expire: never
+    plugin: caching_sha2_password
+    plugin_auth_string: '{{ lookup("ansible.builtin.password",
+      "passwords/mysql_repl_password.txt", length=26) }}'
+    salt: '{{ lookup("ansible.builtin.password",
+      "passwords/mysql_repl_salt.txt", length=20) }}'
+    priv:
+      '*.*': REPLICATION SLAVE
+
 mysql_import_databases:
   bet: bet.sql
+
+mysql_export_databases:
+  bet:
+    dump: bet-slave.sql
+    dir: roles/mysql_import/files
+    ignore_tables: '{{ hostvars["slave"].mysql_replicate_ignore_tables }}'
 ...

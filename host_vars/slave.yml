@@ -3,4 +3,12 @@ mysql_server_id: 2
 mysql_replicate_ignore_tables:
   - bet.events_on_demand
   - bet.v_same_event
+
+mysql_import_databases:
+  bet: bet-slave.sql
+
+mysql_repl_primary_host: '192.168.11.150'
+mysql_repl_primary_user: repl
+mysql_repl_primary_password: '{{ lookup("ansible.builtin.password",
+      "passwords/mysql_repl_password.txt", length=26) }}'
 ...

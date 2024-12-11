@@ -2,3 +2,5 @@
 slow-query-log = 1
 log-output = TABLE
 long-query-time = 2
+
+secure-log-path = /var/lib/mysql

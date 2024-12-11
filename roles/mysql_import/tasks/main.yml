@@ -4,6 +4,7 @@
     login_unix_socket: '{{ mysql_import_socket }}'
     login_user: '{{ mysql_import_user }}'
     login_password: '{{ mysql_import_password }}'
+    filter: [databases]
   register: mysql_import_info
 
 - name: Include database tasks

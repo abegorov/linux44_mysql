@@ -6,4 +6,6 @@ mysql_root_password: '{{ lookup("ansible.builtin.password",
 
 mysql_server_id: 1
 mysql_replicate_ignore_tables: []
+
+mysql_users: []
 ...

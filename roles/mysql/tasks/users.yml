@@ -1,0 +1,20 @@
+---
+- name: Update mysql users
+  community.mysql.mysql_user:
+    login_unix_socket: '{{ mysql_socket }}'
+    login_user: root
+    login_password: '{{ mysql_root_password }}'
+    name: '{{ item.name }}'
+    host: '{{ item.host | default(omit) }}'
+    column_case_sensitive: true
+    password_expire: '{{ item.password_expire | default(omit) }}'
+    password_expire_interval: '{{ item.password_expire_interval |
+      default(omit) }}'
+    plugin: '{{ item.plugin | default(omit) }}'
+    plugin_auth_string: '{{ item.plugin_auth_string | default(omit) }}'
+    salt: '{{ item.salt | default(omit) }}'
+    priv: '{{ item.priv | default(omit) }}'
+    state: present
+  loop: '{{ mysql_users }}'
+  no_log: true
+...

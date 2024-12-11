@@ -2,9 +2,15 @@
 - name: Import install tasks
   ansible.builtin.import_tasks: install.yml
 
+- name: Import firewalld tasks
+  ansible.builtin.import_tasks: firewalld.yml
+
 - name: Import config tasks
   ansible.builtin.import_tasks: config.yml
 
 - name: Import init tasks
   ansible.builtin.import_tasks: init.yml
+
+- name: Import users tasks
+  ansible.builtin.import_tasks: users.yml
 ...

@@ -1,0 +1,9 @@
+---
+- name: Enable mysql service in firewalld
+  ansible.posix.firewalld:
+    service: mysql
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
+...

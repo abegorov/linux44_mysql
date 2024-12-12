@@ -31,7 +31,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- (origin: @@global.gtid_executed)
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '8581a180-b599-11ef-b902-00163e0e40a1:1-4';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '573b580b-b887-11ef-8d8f-00163e0e40a1:1-40';
 
 --
 -- Table structure for table `bookmaker`
@@ -205,4 +205,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-11 19:22:30
+-- Dump completed on 2024-12-12 12:48:22
